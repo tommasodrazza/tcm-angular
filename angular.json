@@ -27,7 +27,8 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/custom-theme.scss",
+              "src/styles/main.css"
             ],
             "scripts": []
           },
@@ -85,7 +86,7 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles/main.css"
             ],
             "scripts": []
           }
