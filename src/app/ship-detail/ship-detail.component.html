@@ -1,1 +1,13 @@
-<p>{{ shipId }}</p>
+<div class="grid grid--center col-100">
+    <div class="col-100 text-center">
+        <h1 class="text-1 mb-4">{{ shipType }}</h1>
+    </div>
+
+    <ng-container *ngIf="ship">
+        <p class="text-2">Ship signature: {{ ship.signature }}</p>
+    </ng-container>
+
+    <ng-container *ngIf="cruise">
+        <p class="text-2">Cruise people on board:  {{ cruise.onBoardPeople }}</p>
+    </ng-container>
+</div>

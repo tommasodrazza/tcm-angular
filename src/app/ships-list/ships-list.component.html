@@ -1,11 +1,11 @@
 <div class="col-100 grid">
     <div class="col-100">
-        <input class="input mt-1 mb-1" [(ngModel)]="searchString" type="text" placeholder="Search dock here:" (ngModelChange)="this.searchStringUpdate.next($event)">
+        <input class="input mt-1 mb-1" [(ngModel)]="searchString" type="text" placeholder="Search dock here:" (ngModelChange)="searchStringUpdate.next($event)">
     </div>
 
     <div class="col-100 grid grid--end p-0">
         
-        <table mat-table [dataSource]="dataSource$" class="mat-elevation-z8 col-100 p-0">
+        <table mat-table [dataSource]="ships" class="mat-elevation-z8 col-100 p-0">
         
             <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef> <p class="text-4">ID</p> </th>

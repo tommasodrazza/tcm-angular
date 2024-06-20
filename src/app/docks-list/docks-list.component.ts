@@ -1,18 +1,17 @@
 import { Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
 import { NgIf } from '@angular/common';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-
-import Ship from '../model/ships/Ship';
 import { ProgressBarComponent } from '../progress-bar/progress-bar.component';
-
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator } from '@angular/material/paginator';
 import { FormsModule } from '@angular/forms';
-import { catchError, map, Observable, switchMap, Subject } from 'rxjs';
+import { catchError, Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-
 import { HttpService } from '../httpService/http.service';
+import { environment } from '../../environments/environment';
+import Dock from '../model/Dock';
+
 
 @Component({
   selector: 'app-docks-list',
@@ -25,8 +24,11 @@ import { HttpService } from '../httpService/http.service';
 export class DocksListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   displayedColumns: string[] = ['id', 'length', 'toolsN', 'dockedShips', 'info'];
-  dataSource$ = new Observable<Ship[]>();
+  dataSource$ = new Observable<Dock[]>();
+  docks!: Dock[];
   pageTotal: number = 0;
+
+  url: string = `${environment.API_URL}/docks`
 
   searchString: string = "";
   searchStringUpdate = new Subject<string>();
@@ -40,7 +42,7 @@ export class DocksListComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void { 
     this.navigateRouter({})
-    this.getDataFromApi();
+    this.loadData()
   }
 
   ngAfterViewInit(): void {
@@ -57,26 +59,23 @@ export class DocksListComponent implements OnInit, AfterViewInit {
     });
   }
   
-  getDataFromApi(){ 
-    this.isLoading = true;
-    this.dataSource$ = this.route.queryParams.pipe(
-      switchMap((params: Params) => {
-        const filters = { offset: params['offset'] || 1, searchString: params['searchString'] || '', amount: params['amount'] || 10};
 
-        return this.httpService.getList<Ship>('http://localhost:5279/docks',filters).pipe(
-          map((data) => {
-            this.pageTotal = data.content.info.total;
+  loadData(): void{
+    this.route.queryParams.subscribe((p) => {
+      this.isLoading = true;
+      const filters = { offset: p['offset'] || 0, searchString: p['searchString'] || '', amount: p['amount'] || 10};
+      this.httpService.getList<Dock>(this.url ,filters).subscribe(
+          (data) => {
+            this.pageTotal = data.listInfo.total;
             this.isLoading = false;
-            return data.content.value;
+            this.docks = data.content;
+            this.isLoading = false;
           }),
-          catchError(() => {
+          catchError((): any => {
             this.pageTotal = 0;
-            return [];  
+            this.docks = [];  
           })
-        )
       })
-    )
   }
 
-  
 }
