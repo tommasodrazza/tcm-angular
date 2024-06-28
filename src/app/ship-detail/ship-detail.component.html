@@ -1,13 +1,46 @@
 <div class="grid grid--center col-100">
+
     <div class="col-100 text-center">
-        <h1 class="text-1 mb-4">{{ shipType }}</h1>
+        <h1 class="text-0 mb-4">Ship details:</h1>
     </div>
 
-    <ng-container *ngIf="ship">
-        <p class="text-2">Ship signature: {{ ship.signature }}</p>
-    </ng-container>
 
-    <ng-container *ngIf="cruise">
-        <p class="text-2">Cruise people on board:  {{ cruise.onBoardPeople }}</p>
-    </ng-container>
+    <div class="card col-90 grid grid--start p-2">
+        <div class="card-icon">
+            <img [src]="image" class="img-res" alt="Ship icon svg image">
+        </div>
+        <ul class="mb-0"> 
+            <li> <h2 class="mb-3">ID: {{ ship.id }}</h2> </li>
+            <li> <h4>Signature: {{ ship.signature }}</h4> </li>
+            <li> <h4>Draft: {{ ship.draft.toFixed(2) }}</h4> </li>
+            <li> <h4>Length: {{ ship.length.toFixed(2) }}</h4> </li>
+
+            <ng-container *ngIf="isContainerCargo(ship)">
+                <li> <h4>Dwt: {{ ship.dwt }}</h4> </li>
+                <li> <h4>Available volume: {{ ship.availableVolume.toFixed(2) }}</h4> </li>
+                <li> <h4>Occupated volume: {{ ship.occupatedVolume.toFixed(2) }}</h4> </li>
+                <li> <h4>Containers: {{ ship.containers.length }}</h4> </li>
+            </ng-container>
+
+            <ng-container *ngIf="isCruise(ship)">
+                <li> <h4>People capacity: {{ ship.peopleCapacity }}</h4> </li>
+                <li> <h4>People on board: {{ ship.onBoardPeople }}</h4> </li>
+                <li> <h4>Rooms: {{ ship.nRooms }}</h4> </li>
+            </ng-container>
+
+            <ng-container *ngIf="isYacht(ship)">
+                <li> <h4>People capacity: {{ ship.peopleCapacity }}</h4> </li>
+                <li> <h4>People on board: {{ ship.onBoardPeople }}</h4> </li>
+                <li> <h4>Engine Type: {{ ship.engineType }}</h4> </li>
+            </ng-container>
+
+            <ng-container *ngIf="isOilTanker(ship)">
+                <li> <h4>Dwt: {{ ship.dwt }}</h4> </li>
+                <li> <h4>Liter capacity: {{ ship.literCapacity }}</h4> </li>
+                <li> <h4>Liter effective: {{ ship.literEffective }}</h4> </li>
+                <li> <h4>Tanks: {{ ship.tanks.length }}</h4> </li>
+            </ng-container>
+
+        </ul>
+    </div>
 </div>

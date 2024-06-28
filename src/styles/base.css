@@ -3,6 +3,7 @@
     --bg: #242321;
     --primary: #413BF5;
     --primary_t2: #413bf5a2;
+    --primary_t3: #413bf538;
     --text: #dfdbdb;
 }
 
@@ -14,7 +15,8 @@
 /* ! Reset */
 body, html{ background: var(--bg); color: var(--text); font-size: 11px; font-family: Arial, Helvetica, sans-serif,  sans-serif; box-sizing: border-box;margin: 0;padding: 0; transition: background 0.4s cubic-bezier(.215, .61, .355, 1);}
 *,*:before,*:after{ box-sizing: border-box; }
-h1,h2,h3,h4,h5,h6, p, ol, ul{margin: 0;padding: 0;}
+h1,h2,h3,h4,h5,h6, p, ol, ul, a{margin: 0;padding: 0;}
+a { color: var(--primary); text-decoration: underline !important; }
 ol,ul{list-style-type: none;}
 img{height: auto;}
 a{text-decoration: none;}

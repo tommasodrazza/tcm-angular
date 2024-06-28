@@ -1,20 +1,14 @@
 <div class="grid grid--center col-100">
-    <h1 class="text-1 mb-4">TCM HOME</h1>
+    <h1 class="text-0 mb-4">TCM HOME</h1>
 
-    <mat-tab-group class="col-100" mat-align-tabs="center" animationDuration="400ms" (selectedTabChange)="toEmptyParams()">
-        
-        <mat-tab label="Ships" class="grid">
-            <div class="col-100 mt-2 p-0">
-                <app-ships-list></app-ships-list>
-            </div>
-        </mat-tab>
-
-        <mat-tab label="Docks" class="grid">
-            <div class="col-100 mt-2 p-0">
-                <app-docks-list></app-docks-list>
-            </div>
-        </mat-tab>
-
-    </mat-tab-group>
-
+    <div class="col-100 grid grid--center mt-4">
+        <button [routerLink]="['/ships']" class="button m-1">
+            <h4 class="mb-0">Show ships</h4>
+        </button>
+        <button [routerLink]="['/docks']" [state]="{ breadcrumb: 'ciao' }" class="button m-1">
+            <h4 class="mb-0">Show docks</h4>
+        </button>
+    </div>
+    <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+    <router-outlet></router-outlet>
 </div>

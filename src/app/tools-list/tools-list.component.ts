@@ -10,25 +10,26 @@ import { catchError, Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { HttpService } from '../httpService/http.service';
 import { environment } from '../../environments/environment';
-import Dock from '../model/Dock';
+import Tool from '../model/Tool';
 
 
 @Component({
   selector: 'app-docks-list',
   standalone: true,
   imports: [MatTableModule, MatIconModule, FormsModule, MatPaginator, NgIf, ProgressBarComponent, RouterLink],
-  templateUrl: './docks-list.component.html',
-  styleUrl: './docks-list.component.css'
+  templateUrl: './tools-list.component.html',
+  styleUrl: './tools-list.component.css'
 })
 
-export class DocksListComponent implements OnInit, AfterViewInit {
+export class ToolsListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  displayedColumns: string[] = ['id', 'length', 'toolsN', 'dockedShips', 'info'];
-  dataSource$ = new Observable<Dock[]>();
-  docks!: Dock[];
+  displayedColumns: string[] = ['id', 'tooltype', 'isFree', 'usedBy'];
+  dataSource$ = new Observable<Tool[]>();
+  tools!: Tool[];
   pageTotal: number = 0;
 
-  url: string = `${environment.API_URL}/docks`
+  url!: string;
+  title: string = "";
 
   searchString: string = "";
   searchStringUpdate = new Subject<string>();
@@ -40,7 +41,15 @@ export class DocksListComponent implements OnInit, AfterViewInit {
     });
   }
 
+  setUrl(){
+    this.route.params.forEach((p) => {
+      this.url = `${environment.API_URL}/dock-tools/${p['dockid']}`
+      this.title = `DOCK: ${p['dockid']} tools`
+    })
+  }
+
   ngOnInit(): void { 
+    this.setUrl()
     this.navigateRouter({})
     this.loadData()
   }
@@ -52,7 +61,7 @@ export class DocksListComponent implements OnInit, AfterViewInit {
   }
 
   navigateRouter(querParams: object){
-    this.router.navigate(['/docks'], {
+    this.router.navigate([this.router.url.split('?')[0]], {
         relativeTo: this.route,
         queryParams: querParams,
         queryParamsHandling: 'merge',
@@ -64,16 +73,16 @@ export class DocksListComponent implements OnInit, AfterViewInit {
     this.route.queryParams.subscribe((p) => {
       this.isLoading = true;
       const filters = { offset: p['offset'] || 0, searchString: p['searchString'] || '', amount: p['amount'] || 10};
-      this.httpService.getList<Dock>(this.url ,filters).subscribe(
+      this.httpService.getList<Tool>(this.url ,filters).subscribe(
           (data) => {
             this.pageTotal = data.listInfo.total;
             this.isLoading = false;
-            this.docks = data.content;
+            this.tools = data.content;
             this.isLoading = false;
           }),
           catchError((): any => {
             this.pageTotal = 0;
-            this.docks = [];  
+            this.tools = [];  
           })
       })
   }

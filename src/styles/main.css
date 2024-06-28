@@ -34,9 +34,14 @@ h1, h2, h3, h4, p, ol, ul{margin-bottom: 1rem; line-height: 1; color: var(--text
 /* ! Button system */
 .button{ font-size: 1.2rem; background: var(--primary); color: var(--text); padding: 10px 20px; display: inline-block; border-radius: 7px; border: none; cursor: pointer; transition: all 0.4s cubic-bezier(.215, .61, .355, 1);}
 .button:hover{background: var(--primary_t2);}
-
 .button--info{ padding: 0; border-radius: 50%; height: 30px; width: 30px; padding-top: 3px; padding-left: 1px; }
 
+.button-add{ border-radius: 50%; width: 50px; height: 50px; box-shadow: 0px 0px 10px 10px rgba(0,0,0,0.23); position: fixed; bottom: 40px; right: 40px; }
+
+.button:disabled{ background: var(--primary_t3); cursor:not-allowed; }
+
+.button-back{ border-radius: 50%; width: 50px; height: 50px; position: fixed; top: 20px; left: 20px; background: none; }
+.button-back:hover{ background: none; box-shadow: 0px 0px 10px 3px rgba(0,0,0,0.23); }
 
 /* ! Input system */
 .input{ font-size: 1.3rem; background: var(--text); border: none; color: var(--bg); padding: 10px 18px; display: inline-block; border-radius: 40px; transition: all 0.25s cubic-bezier(.215, .61, .355, 1); }
@@ -47,8 +52,6 @@ input[type="checkbox"] { appearance: none; background-color: var(--text-t1); mar
 input[type="checkbox"]::before { content: ""; width: 0.65em; height: 0.65em; box-shadow: inset 1em 1em var(--text-t1);transform-origin: bottom left; clip-path: polygon(40% 75%, 86% 17%, 100% 27%, 41% 100%, 0 69%, 12% 55%); }
 input[type="checkbox"]:checked { background: var(--secondary-t1); }
 input[type="checkbox"]:checked::before { display: block; }
-
-
 
 
 
@@ -78,6 +81,24 @@ input[type="checkbox"]:checked::before { display: block; }
 /* ! Tabs */
 .mat-mdc-tab { height: 40px !important; }
 
+
+/* ! Cards */
+.card{ border: 1.3px solid var(--text); border-radius: 10px; box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.23); position: relative; }
+.card-icon{ position: absolute; top: 20px; right: 20px; border-radius: 50%; height: 60px; width: 60px; background: #fff; padding: 8px; }
+@media (max-width: 768px) {
+	.card-icon{ top: 10px; right: 10px; border-radius: 50%; height: 40px; width: 40px; background: #fff; }
+}
+
+/* ! Snackbar */
+.error-snackbar{ background: rgb(156, 11, 11); }
+.success-snackbar{ background: #4BB543; }
+
+/* ! Spinner */
+.spinner{ margin-bottom: -6px; animation: rotate 0.7s linear infinite; }
+@keyframes rotate{
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
 
 /* ! Grid system */
 .grid{display: flex;flex-wrap: wrap; max-width: 1100px; margin: 0 auto;}

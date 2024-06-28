@@ -1,27 +1,35 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
-import { DocksListComponent } from '../docks-list/docks-list.component';
-import { ShipsListComponent } from '../ships-list/ships-list.component';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import {ThemePalette} from '@angular/material/core';
 
 @Component({
   selector: 'app-tcm-home',
   standalone: true,
-  imports: [MatTabsModule, DocksListComponent, ShipsListComponent],
+  imports: [MatTabsModule, RouterLink, RouterOutlet],
   templateUrl: './tcm-home.component.html',
   styleUrl: './tcm-home.component.css'
 })
-export class TcmHomeComponent {
-  @ViewChild(ShipsListComponent) shipsList!: ShipsListComponent;
+export class TcmHomeComponent implements AfterViewInit {
   constructor(private router: Router) {
   }
 
   toEmptyParams(){
-    this.shipsList.searchString = "";
     this.router.navigate([], {
       queryParams: { 'ammount': null, 'offset': null, 'searchString': null },
       queryParamsHandling: 'merge'
     })
   }
 
+  ngAfterViewInit(): void {
+    this.toEmptyParams()
+  }
+
+  links = ['Ships', 'Docks'];
+  activeLink = this.links[0];
+  background: ThemePalette = undefined;
+
+  toggleBackground() {
+    this.background = this.background ? undefined : 'primary';
+  }
 }

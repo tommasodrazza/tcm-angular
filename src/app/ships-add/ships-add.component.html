@@ -1,0 +1,71 @@
+<div class="col-100 grid grid--center">
+    <h1 class="col-100 text-0 mb-0 text-center mb-2">ADD SHIP</h1>
+    <div class="col-100">
+        <select #type name="shipType" id="shipType" class="input mt-1 mb-1" (change)="onChange(type.value)" type="text" placeholder="Ship type">
+            <ng-container *ngFor="let shipType of shipTypes">
+                <option [value]="shipType">{{ shipType.toUpperCase() }}</option>
+            </ng-container>
+        </select>
+    </div>
+
+    <div class="col-100 grid grid--between mt-4">
+        <div class="col-33 p-2">
+            <p class="text-body">Signature</p>
+            <input [(ngModel)]="requestBody.signature" type="text" class="input w-100" placeholder="Signature">
+        </div>
+        <div class="col-33 p-2">
+            <p class="text-body">Length</p>
+            <input [(ngModel)]="requestBody.length" type="number" min="0" class="input w-100" step=".01" pattern="^\d*\.\d{2}$" placeholder="Length">
+        </div>
+        <div class="col-33 p-2">
+            <p class="text-body">Draft</p>
+            <input [(ngModel)]="requestBody.draft" type="number" min="0" class="input w-100" step=".01" pattern="^\d*\.\d{2}$" placeholder="Draft">
+        </div>
+    </div>
+
+    <ng-container *ngIf="activeType == 'oiltanker' || activeType == 'containercargo'">
+        <div class="col-100 grid grid--between">
+            <div class="col-33 p-2">
+                <p class="text-body">Dwt</p>
+                <input [(ngModel)]="requestBody.dwt" type="number" min="0" class="input w-100" step=".01" pattern="^\d*\.\d{2}$" placeholder="Dwt">
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="activeType == 'yacht' || activeType == 'cruise'">
+        <div class="col-100 grid grid--between">
+            <div class="col-33 p-2">
+                <p class="text-body">People on board</p>
+                <input [(ngModel)]="requestBody.onBoardPeople" type="number" min="0" class="input w-100" placeholder="People on board">
+            </div>
+            <div class="col-33 p-2">
+                <p class="text-body">People capacity</p>
+                <input [(ngModel)]="requestBody.peopleCapacity" type="number" min="0" class="input w-100" placeholder="People capacity">
+            </div>
+            <ng-container *ngIf="activeType == 'yacht'">
+                <div class="col-33 p-2">
+                    <p class="text-body">Engine type</p>
+                    <input [(ngModel)]="requestBody.engineType" type="number" min="0" class="input w-100" min="1" max="3" placeholder="Engine type">
+                </div>
+            </ng-container>
+            <ng-container *ngIf="activeType == 'cruise'">
+                <div class="col-33 p-2">
+                    <p class="text-body">Rooms number</p>
+                    <input [(ngModel)]="requestBody.nRooms" type="number" min="0" class="input w-100" min="1" placeholder="Rooms number">
+                </div>
+            </ng-container>
+        </div>
+    </ng-container>
+
+    <div class="col-100 grid grid--end mt-4 p-2">
+        <button [disabled]="isLoading" class="button" (click)="addShip()">
+            <ng-container *ngIf="!isLoading">
+                Add Ship
+            </ng-container>
+            <ng-container *ngIf="isLoading">
+                <img class="spinner" src="assets/spinner.svg" alt="">
+            </ng-container>
+        </button>        
+    </div>
+    
+</div>

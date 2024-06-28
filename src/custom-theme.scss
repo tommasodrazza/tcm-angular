@@ -10,14 +10,14 @@
 
 // Define the theme object.
 $tcm-angular-theme: mat.define-theme(
-  (
-    color: (
-      theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    density: (
-      scale: 0,
-    ),
-  )
+    (
+        color: (
+            theme-type: light,
+            primary: mat.$azure-palette,
+            tertiary: mat.$blue-palette,
+        ),
+        density: (
+            scale: 0,
+        ),
+    )
 );

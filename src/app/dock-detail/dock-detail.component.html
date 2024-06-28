@@ -1,1 +1,20 @@
-<p>dock-detail works!</p>
+<div class="grid grid--center col-100">
+
+    <div class="col-100 text-center">
+        <h1 class="text-0 mb-4">Dock details:</h1>
+    </div>
+
+
+    <div class="card col-80 grid grid--start p-2">
+        <ul class="mb-0 col-100"> 
+            <li> <h2 class="mb-3">ID: {{ dock.id }}</h2> </li>
+            <li> <h4>Length: {{ dock.length }}</h4> </li>
+            <li> <h4>Docked ships: {{ dock.dockedShips.length }}</h4> </li>
+            <li> <h4>Tools: {{ dock.tools.length }}</h4> </li>
+        </ul>
+        <div class="col-100 mt-3">
+            <button [routerLink]="['/ships/dock', dock.id]" class="button mr-1">Docked Ships</button>
+            <button [routerLink]="['/tools', dock.id]" class="button ml-1">Tools</button>
+        </div>
+    </div>
+</div>

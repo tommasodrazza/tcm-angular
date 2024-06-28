@@ -1,4 +1,7 @@
 <div class="col-100 grid">
+    <h1 class="col-100 text-center text-0 mb-2">
+        DOCKS LIST
+    </h1>
     <div class="col-100">
         <input class="input mt-1 mb-1" [(ngModel)]="searchString" type="text" placeholder="Search dock here:" (ngModelChange)="this.searchStringUpdate.next($event)">
     </div>
@@ -29,7 +32,7 @@
             <ng-container matColumnDef="info">
                 <th mat-header-cell *matHeaderCellDef> <p class="text-4">Info</p> </th>
                 <td mat-cell *matCellDef="let element">
-                    <button class="button button--info">
+                    <button class="button button--info" [routerLink]="['/docks', element.id]">
                         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="chevron_right"></mat-icon>
                     </button>
                 </td>
